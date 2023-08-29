@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperspace Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .hyperspace {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-image: url('hyperspace.jpg');
+            background-size: cover;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            background-image: url('star_wars_star.png');
+            background-size: cover;
+            animation: moveStar linear infinite, twinkleRainbow .2s infinite alternate;
+        }
+
+        .psi-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: white;
+            z-index: 1;
+            font-weight: bold;
+            font-family: 'Times New Roman', sans-serif;
+            animation: hoverUpAndDown 5s infinite alternate;
+        }
+
+        .psi-text::before {
+            content: 'Ψ';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            color: rgb(255, 255, 255);
+            z-index: -1;
+            font-weight: bold;
+            font-family: 'Times New Roman', sans-serif;
+            opacity: 0.5;
+            animation: stretchBackground 5s infinite alternate;
+        }
+
+        @keyframes moveStar {
+            0% { transform: translateY(0%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes twinkleRainbow {
+            0% { background-color: red; }
+            14% { background-color: orange; }
+            28% { background-color: yellow; }
+            42% { background-color: green; }
+            57% { background-color: blue; }
+            71% { background-color: indigo; }
+            85% { background-color: violet; }
+            100% { background-color: red; }
+        }
+
+        @keyframes hoverUpAndDown {
+            0% { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -145%); }
+        }
+
+        @keyframes stretchBackground {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hyperspace">
+        <span class="psi-text">PSI</span>
+    </div>
+    <script>
+        const hyperspaceEl = document.querySelector('.hyperspace');
+        
+        function createStars() {
+            for (let i = 0; i < 965; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 110 + 'vw';
+                star.style.top = Math.random() * 110 + 'vh';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                hyperspaceEl.appendChild(star);
+            }
+        }
+        
+        createStars();
+    </script>
+</body>
+</html>
